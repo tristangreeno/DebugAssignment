@@ -3,6 +3,14 @@
  * Stores the information concerning each country from the countries.txt file.
  */
 public class Country {
+    public String getCountryName() {
+        return countryName;
+    }
+
+    public String getCountryAbbreviation() {
+        return countryAbbreviation;
+    }
+
     String countryName;
     String countryAbbreviation;
 

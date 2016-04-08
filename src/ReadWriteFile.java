@@ -1,3 +1,5 @@
+import jodd.json.JsonSerializer;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,7 +62,9 @@ class ReadWriteFile extends Country {
     }
 
     private void writeToFile(char countryChar, String countryLetter) throws IOException {
-        File countriesFile = new File("src/".concat(countryLetter).concat("_countries.txt"));
+        JsonSerializer serializer = new JsonSerializer();
+
+        File countriesFile = new File("src/".concat(countryLetter).concat("_countries.json"));
         FileWriter fw = new FileWriter(countriesFile.getAbsoluteFile());
         BufferedWriter bufferedWriter = new BufferedWriter(fw);
 
@@ -69,11 +73,15 @@ class ReadWriteFile extends Country {
         }
 
         ArrayList<Country> temp = countryLetters.get(countryChar);
-        for (Country c : temp) {
-            String content = c.countryName;
-            System.out.printf("%s has been added to the list file.\n", c.countryName);
-            bufferedWriter.write(content + "\n");
+        String countryJson = serializer.include("*").serialize(temp);
+        bufferedWriter.write(countryJson);
+
+        for (Country c : temp)
+        {
+            System.out.println(c.countryName);
         }
+
+        System.out.printf("JSON file of countries starting with '%s' have been added.\n", countryLetter.toUpperCase());
 
         bufferedWriter.close();
     }
