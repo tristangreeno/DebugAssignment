@@ -76,12 +76,9 @@ class ReadWriteFile extends Country {
         String countryJson = serializer.include("*").serialize(temp);
         bufferedWriter.write(countryJson);
 
-        for (Country c : temp)
-        {
-            System.out.println(c.countryName);
-        }
+        System.out.println(countryLetters.get(countryChar).toString());
 
-        System.out.printf("JSON file of countries starting with '%s' have been added.\n", countryLetter.toUpperCase());
+        System.out.printf("JSON file of countries starting with '%s' has been created.\n", countryLetter.toUpperCase());
 
         bufferedWriter.close();
     }
